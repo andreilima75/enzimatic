@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricovendasViewDlg" widgetVar="HistoricovendasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewHistoricovendasTitle}">
+            <h:form id="HistoricovendasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicovendasController.selected != null}">
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_historicovendasPK_idprodutos}"/>
+                        <h:outputText value="#{historicovendasController.selected.historicovendasPK.idprodutos}" title="#{bundle.ViewHistoricovendasTitle_historicovendasPK_idprodutos}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_historicovendasPK_idhistoricovendas}"/>
+                        <h:outputText value="#{historicovendasController.selected.historicovendasPK.idhistoricovendas}" title="#{bundle.ViewHistoricovendasTitle_historicovendasPK_idhistoricovendas}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_historicovendasPK_idtipo}"/>
+                        <h:outputText value="#{historicovendasController.selected.historicovendasPK.idtipo}" title="#{bundle.ViewHistoricovendasTitle_historicovendasPK_idtipo}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_historicovendasPK_idlaboratorio}"/>
+                        <h:outputText value="#{historicovendasController.selected.historicovendasPK.idlaboratorio}" title="#{bundle.ViewHistoricovendasTitle_historicovendasPK_idlaboratorio}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_quantidade}"/>
+                        <h:outputText value="#{historicovendasController.selected.quantidade}" title="#{bundle.ViewHistoricovendasTitle_quantidade}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_valorcobrado}"/>
+                        <h:outputText value="#{historicovendasController.selected.valorcobrado}" title="#{bundle.ViewHistoricovendasTitle_valorcobrado}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_valorreal}"/>
+                        <h:outputText value="#{historicovendasController.selected.valorreal}" title="#{bundle.ViewHistoricovendasTitle_valorreal}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_lucro}"/>
+                        <h:outputText value="#{historicovendasController.selected.lucro}" title="#{bundle.ViewHistoricovendasTitle_lucro}"/>
+                        <h:outputText value="#{bundle.ViewHistoricovendasLabel_data}"/>
+                        <h:outputText value="#{historicovendasController.selected.data}" title="#{bundle.ViewHistoricovendasTitle_data}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="HistoricovendasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

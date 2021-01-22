@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHistoricovendasTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="HistoricovendasListForm">
+                <p:panel header="#{bundle.ListHistoricovendasTitle}">
+                    <p:dataTable id="datalist" value="#{historicovendasController.items}" var="item"
+                                 selectionMode="single" selection="#{historicovendasController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.historicovendasPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_historicovendasPK_idprodutos}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produtos.nome}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_historicovendasPK_idlaboratorio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produtos.laboratoriotipo.laboratorio.nome}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_historicovendasPK_idtipo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produtos.laboratoriotipo.tipo.nome}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_quantidade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantidade}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ViewProdutosLabel_estoque}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produtos.estoque}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_valorcobrado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorcobrado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_valorreal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorreal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_lucro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lucro}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricovendasTitle_data}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.data}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{historicovendasController.prepareCreate}" update=":HistoricovendasCreateForm" oncomplete="PF('HistoricovendasCreateDialog').show()"/>
+                           <!--<p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HistoricovendasViewForm" oncomplete="PF('HistoricovendasViewDialog').show()" disabled="#{empty historicovendasController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":HistoricovendasEditForm" oncomplete="PF('HistoricovendasEditDialog').show()" disabled="#{empty historicovendasController.selected}"/>
+                           --> 
+                           <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{historicovendasController.destroy}" update=":growl,datalist" disabled="#{empty historicovendasController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

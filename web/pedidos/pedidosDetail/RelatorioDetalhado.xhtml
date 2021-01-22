@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>  
+        <f:event type="preRenderView" listener="#{pedidosDetailController.gerarPedido()}"/>  
+    </f:metadata>
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPedidosTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+
+            <h:form id ="PedidosprodutosListForm">
+                <h:link outcome="/pedidos/List" value="Voltar"/>
+
+                <p:dataList value="#{pedidosDetailController.items}" var="item" type="definition" rendered="#{not empty pedidosDetailController.items}">
+                    <f:facet name="header">
+                        <br/>Pedido de: #{pedidosDetailController.pedido.idclientes.nome}
+                        <br/>Valor a ser pago: #{pedidosDetailController.pedido.valorcobrado} + #{pedidosDetailController.valorFrete} de frete, total de #{pedidosDetailController.valorTotal}
+                    </f:facet>
+                    #{item.produtos.laboratoriotipo.laboratorio.nome} - #{item.produtos.laboratoriotipo.tipo.nome} - #{item.produtos.nome} - #{item.produtos.opcao}: #{item.quantidade} x #{item.produtos.valorcobrado} = #{item.valorcobrado}<br/><br/>
+
+                </p:dataList>
+
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

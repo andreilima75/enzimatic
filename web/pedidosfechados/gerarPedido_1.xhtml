@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>  
+        <f:event type="preRenderView" listener="#{pedidosFechadosController.gerarPedido()}"/>  
+    </f:metadata>
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Gerar Pedidos"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id ="gerarPedidoForm" >
+                <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                    <p:printer target="printSection" />
+                </p:commandButton>
+                
+                <h:link outcome="/pedidosfechados/List" value="Voltar"/>
+                <p:panel id="printSection" style="display:block;color:black; font-weight: bold;">
+                    <p:dataList  value="#{pedidosFechadosController.ocMescla}" var="item" type="definition" rendered="#{not empty pedidosFechadosController.ocMescla}">
+                        <f:facet name="header">
+                            Solicito Mescla
+                        </f:facet>
+
+                        #{item.produtonome}<br/>
+                        #{item.receita}<br/>
+                        #{item.quantidade} frascos<br/><br/>
+
+                    </p:dataList>
+
+                    <p:dataList value="#{pedidosFechadosController.ocKit}" var="item" type="definition" rendered="#{not empty pedidosFechadosController.ocKit}">
+                        <f:facet name="header">
+                            Solicito Kits
+                        </f:facet>
+                        #{item.produtonome} - #{item.opcao}<br/>
+                        #{item.receita}<br/>
+                        #{item.quantidade} kits<br/><br/>
+                    </p:dataList>
+
+                    <p:dataList value="#{pedidosFechadosController.ocMedicamento}" var="item" type="definition" rendered="#{not empty pedidosFechadosController.ocMedicamento}">
+                        <f:facet name="header">
+                            Solicito Medicamentos
+                        </f:facet>
+                        #{item.produtonome} - #{item.opcao}<br/>
+                        #{item.receita}<br/>
+                        (#{item.quantidade}) <br/><br/>
+                    </p:dataList>
+
+                    <p:dataList value="#{pedidosFechadosController.bioKit}" var="item" type="definition" rendered="#{not empty pedidosFechadosController.bioKit}">
+                        <f:facet name="header">
+                            Solicito Kit
+                        </f:facet>
+                        Paciente Adysson Rodrigues da Silva<br/>
+                        #{item.produtonome} - #{item.opcao}<br/>
+                        #{item.quantidade} - #{item.receita}<br/><br/>
+                    </p:dataList>
+
+                    <p:dataList value="#{pedidosFechadosController.bioMedicamento}" var="item" type="definition" rendered="#{not empty pedidosFechadosController.bioMedicamento}">
+                        <f:facet name="header">
+                            Solicito Medicamentos
+                        </f:facet>
+                        #{item.produtonome} - #{item.opcao}<br/>
+                        #{item.receita}<br/>
+                        (#{item.quantidade}) <br/><br/>
+                    </p:dataList>
+                </p:panel>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

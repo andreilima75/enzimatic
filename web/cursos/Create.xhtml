@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursosCreateDlg" widgetVar="CursosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCursosTitle}">
+            <h:form id="CursosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cursosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{cursosController.selected.nome}" title="#{bundle.CreateCursosTitle_nome}" required="true" requiredMessage="#{bundle.CreateCursosRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{cursosController.selected.data}" title="#{bundle.EditCursosTitle_data}" required="true" requiredMessage="#{bundle.EditCursosRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_observacao}" for="observacao" />
+                        <p:inputText id="observacao" value="#{cursosController.selected.observacao}" title="#{bundle.CreateCursosTitle_observacao}" />
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_vagas}" for="vagas" />
+                        <p:inputText id="vagas" value="#{cursosController.selected.vagas}" title="#{bundle.CreateCursosTitle_vagas}" required="true" requiredMessage="#{bundle.CreateCursosRequiredMessage_vagas}"/>
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_local}" for="local" />
+                        <p:inputText id="local" value="#{cursosController.selected.local}" title="#{bundle.CreateCursosTitle_local}" />
+                        <p:outputLabel value="#{bundle.CreateCursosLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{cursosController.selected.valor}" title="#{bundle.CreateCursosTitle_valor}" required="true" requiredMessage="#{bundle.CreateCursosRequiredMessage_valor}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cursosController.create}" value="#{bundle.Save}" update="display,:CursosListForm:datalist,:growl" oncomplete="handleSubmit(args,'CursosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CursosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

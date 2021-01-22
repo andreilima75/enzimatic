@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClientesCreateDlg" widgetVar="ClientesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClientesTitle}">
+            <h:form id="ClientesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clientesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{clientesController.selected.nome}" title="#{bundle.CreateClientesTitle_nome}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_telefone}" for="telefone" />
+                        <p:inputMask mask="(999) 9999-99999"  id="telefone" value="#{clientesController.selected.telefone}" title="#{bundle.CreateClientesTitle_telefone}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_telefone}"/>
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_cidade}" for="cidade" />
+                        <p:inputText id="cidade" value="#{clientesController.selected.cidade}" title="#{bundle.CreateClientesTitle_cidade}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_cidade}"/>
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{clientesController.selected.estado}" title="#{bundle.CreateClientesTitle_estado}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_estado}"/>
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{clientesController.selected.usuario}" title="#{bundle.CreateClientesTitle_usuario}" />
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_senha}" for="senha" />
+                        <p:inputText id="senha" value="#{clientesController.selected.senha}" title="#{bundle.CreateClientesTitle_senha}" />
+                        <p:outputLabel value="Email" for="email" />
+                        <p:inputText id="email" value="#{clientesController.selected.email}" title="Email" />
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_endereco}" for="endereco" />
+                        <p:inputTextarea rows="6" cols="33" id="endereco" value="#{clientesController.selected.endereco}" title="#{bundle.CreateClientesTitle_endereco}" />
+                        <p:outputLabel value="#{bundle.CreateClientesLabel_cep}" for="cep" />
+                        <p:inputMask mask="99999-999" id="cep" value="#{clientesController.selected.cep}" title="#{bundle.CreateClientesTitle_cep}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clientesController.create}" value="#{bundle.Save}" update="display,:ClientesListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClientesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClientesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

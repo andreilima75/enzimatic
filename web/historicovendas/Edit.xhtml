@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricovendasEditDlg" widgetVar="HistoricovendasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditHistoricovendasTitle}">
+            <h:form id="HistoricovendasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicovendasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_historicovendasPK_idprodutos}" for="historicovendasPK_idprodutos" />
+                        <p:inputText id="historicovendasPK_idprodutos" value="#{historicovendasController.selected.historicovendasPK.idprodutos}" title="#{bundle.EditHistoricovendasTitle_historicovendasPK_idprodutos}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_historicovendasPK_idprodutos}"/>
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_historicovendasPK_idhistoricovendas}" for="historicovendasPK_idhistoricovendas" />
+                        <p:inputText id="historicovendasPK_idhistoricovendas" value="#{historicovendasController.selected.historicovendasPK.idhistoricovendas}" title="#{bundle.EditHistoricovendasTitle_historicovendasPK_idhistoricovendas}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_historicovendasPK_idhistoricovendas}"/>
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_historicovendasPK_idtipo}" for="historicovendasPK_idtipo" />
+                        <p:inputText id="historicovendasPK_idtipo" value="#{historicovendasController.selected.historicovendasPK.idtipo}" title="#{bundle.EditHistoricovendasTitle_historicovendasPK_idtipo}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_historicovendasPK_idtipo}"/>
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_historicovendasPK_idlaboratorio}" for="historicovendasPK_idlaboratorio" />
+                        <p:inputText id="historicovendasPK_idlaboratorio" value="#{historicovendasController.selected.historicovendasPK.idlaboratorio}" title="#{bundle.EditHistoricovendasTitle_historicovendasPK_idlaboratorio}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_historicovendasPK_idlaboratorio}"/>
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_quantidade}" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{historicovendasController.selected.quantidade}" title="#{bundle.EditHistoricovendasTitle_quantidade}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_quantidade}"/>
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_valorcobrado}" for="valorcobrado" />
+                        <p:inputText id="valorcobrado" value="#{historicovendasController.selected.valorcobrado}" title="#{bundle.EditHistoricovendasTitle_valorcobrado}" />
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_valorreal}" for="valorreal" />
+                        <p:inputText id="valorreal" value="#{historicovendasController.selected.valorreal}" title="#{bundle.EditHistoricovendasTitle_valorreal}" />
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_lucro}" for="lucro" />
+                        <p:inputText id="lucro" value="#{historicovendasController.selected.lucro}" title="#{bundle.EditHistoricovendasTitle_lucro}" />
+                        <p:outputLabel value="#{bundle.EditHistoricovendasLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{historicovendasController.selected.data}" title="#{bundle.EditHistoricovendasTitle_data}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_data}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{historicovendasController.update}" value="#{bundle.Save}" update="display,:HistoricovendasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HistoricovendasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoricovendasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosprodutosCreateDlg" widgetVar="PedidosprodutosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosprodutosTitle}">
+            <h:form id="PedidosprodutosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidosDetailController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePedidosprodutosLabel_quantidade}" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{pedidosDetailController.selected.quantidade}" title="#{bundle.CreatePedidosprodutosTitle_quantidade}" required="true" requiredMessage="#{bundle.CreatePedidosprodutosRequiredMessage_quantidade}"/>
+
+
+                        <p:outputLabel value="#{bundle.CreateProdutosLabel_laboratoriotipo}" for="laboratoriotipo" />
+                        <p:selectOneMenu id="laboratoriotipo" value="#{pedidosDetailController.laboratoriotipo}" required="true" requiredMessage="#{bundle.EditProdutosRequiredMessage_laboratoriotipo}">
+                            <p:ajax listener="#{pedidosDetailController.onLaboratorioTipoChange}" update="produtos" />
+                            <p:ajax update="receita" />
+                            <f:selectItems value="#{laboratoriotipoController.itemsAvailableSelectOne}"
+                                           var="laboratoriotipoItem"
+                                           itemValue="#{laboratoriotipoItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosprodutosLabel_produtos}" for="produtos" />
+                        <p:selectOneMenu id="produtos" value="#{pedidosDetailController.selected.produtos}" required="true" requiredMessage="#{bundle.EditPedidosprodutosRequiredMessage_produtos}">
+                            <p:ajax listener="#{pedidosDetailController.onProdutosChange}" update="receita" />
+                            <f:selectItems value="#{pedidosDetailController.pedidosProdutos}"
+                                           var="pedidosprodutosItem"
+                                           itemValue="#{pedidosprodutosItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateProdutosLabel_receita}" for="receita" />
+                        <p:inputTextarea readonly="true" rows="6" cols="33" id="receita" value="#{pedidosDetailController.receita}" title="#{bundle.CreateProdutosTitle_receita}" required="true" requiredMessage="#{bundle.CreateProdutosRequiredMessage_receita}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pedidosDetailController.create}" value="#{bundle.Save}" update="display,:PedidosprodutosListForm:datalist,:PedidosprodutosListForm:tbl,:growl" oncomplete="handleSubmit(args,'PedidosprodutosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PedidosprodutosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosCreateDlg" widgetVar="PedidosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosTitle}">
+            <h:form id="PedidosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePedidosLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="dd/MM/yyyy" value="#{pedidosController.selected.data}" title="#{bundle.EditPedidosTitle_data}" required="true" requiredMessage="#{bundle.EditPedidosRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePedidosLabel_aberto}" for="aberto" />
+                        <p:selectBooleanCheckbox id="aberto" value="#{pedidosController.selected.aberto}" required="true" requiredMessage="#{bundle.EditPedidosRequiredMessage_aberto}"/>
+                        <p:outputLabel value="#{bundle.CreatePedidosLabel_pago}" for="pago" />
+                        <p:selectBooleanCheckbox id="pago" value="#{pedidosController.selected.pago}" required="true" requiredMessage="#{bundle.EditPedidosRequiredMessage_pago}"/>
+                        <p:outputLabel value="#{bundle.CreatePedidosLabel_idclientes}" for="idclientes" />
+
+                        <p:selectOneMenu id="idclientes" value="#{pedidosController.selected.idclientes}" >
+                            <f:selectItems value="#{clientesController.itemsAvailableSelectOne}"
+                                           var="nomeItem"
+                                           itemValue="#{nomeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Observacao" for="observacao" />
+                        <p:inputTextarea rows="6" cols="33" id="observacao" value="#{pedidosController.selected.observacao}"   />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pedidosController.create}" value="#{bundle.Save}" update="display,:PedidosListForm:datalist,:growl" oncomplete="handleSubmit(args,'PedidosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PedidosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

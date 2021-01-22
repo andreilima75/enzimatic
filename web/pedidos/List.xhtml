@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPedidosTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="PedidosListForm">
+                <p:panel header="#{bundle.ListPedidosTitle}">
+
+                    <p:dataTable id="datalist" value="#{pedidosController.items}" var="item"
+                                 selectionMode="single" selection="#{pedidosController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idpedidos}"
+                                 rows="20"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Gerar Pedido"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox >
+                                <p:ajax  listener="#{pedidosController.selectBooleanView(item.idpedidos)}" />
+                            </p:selectBooleanCheckbox>
+                        </p:column>   
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Detalhes"/>
+                            </f:facet>
+
+                            <p:commandButton id="detailButton" icon="ui-icon-search"   value="Detalhes" actionListener="#{pedidosDetailController.selecionaPedidos(item.idpedidos)}"/>
+                        </p:column>                   
+                        <p:column sortBy="#{item.data}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_data}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.data}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.aberto}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_aberto}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.aberto}" disabled="true"/>
+                        </p:column>
+                        <p:column sortBy="#{item.pago}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_pago}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pago}" disabled="true"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idclientes.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="Clientes"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idclientes.nome} - #{item.idclientes.telefone}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.observacao}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_observacao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observacao}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.valorcobrado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_valorcobrado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorcobrado}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.valorreal}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_valorreal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorreal}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.lucro}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosTitle_lucro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lucro}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.idclientes.cep}">
+                            <f:facet name="header">
+                                <h:outputText value="CEP"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idclientes.cep}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidosController.prepareCreate}" update=":PedidosCreateForm" oncomplete="PF('PedidosCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidosViewForm" oncomplete="PF('PedidosViewDialog').show()" disabled="#{empty pedidosController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PedidosEditForm" oncomplete="PF('PedidosEditDialog').show()" disabled="#{empty pedidosController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidosController.destroy}" update=":growl,datalist" disabled="#{empty pedidosController.selected}"/>
+                            <h:link outcome="/pedidos/gerarPedido_1" value="Gerar Pedido" />
+
+                        </f:facet>
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

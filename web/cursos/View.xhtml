@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursosViewDlg" widgetVar="CursosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCursosTitle}">
+            <h:form id="CursosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cursosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCursosLabel_nome}"/>
+                        <h:outputText value="#{cursosController.selected.nome}" title="#{bundle.ViewCursosTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_data}"/>
+                        <h:outputText value="#{cursosController.selected.data}" title="#{bundle.ViewCursosTitle_data}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCursosLabel_observacao}"/>
+                        <h:outputText value="#{cursosController.selected.observacao}" title="#{bundle.ViewCursosTitle_observacao}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_vagas}"/>
+                        <h:outputText value="#{cursosController.selected.vagas}" title="#{bundle.ViewCursosTitle_vagas}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_local}"/>
+                        <h:outputText value="#{cursosController.selected.local}" title="#{bundle.ViewCursosTitle_local}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_valor}"/>
+                        <h:outputText value="#{cursosController.selected.valor}" title="#{bundle.ViewCursosTitle_valor}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_vagasdisponiveis}"/>
+                        <h:outputText value="#{cursosController.selected.vagasdisponiveis}" title="#{bundle.ViewCursosTitle_vagasdisponiveis}"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_encerrado}"/>
+                        <p:selectBooleanCheckbox value="#{cursosController.selected.encerrado}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCursosLabel_idcurso}"/>
+                        <h:outputText value="#{cursosController.selected.idcurso}" title="#{bundle.ViewCursosTitle_idcurso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CursosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

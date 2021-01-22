@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursosclientesCreateDlg" widgetVar="CursosclientesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCursosclientesTitle}">
+            <h:form id="CursosclientesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cursosclientesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCursosclientesLabel_cursosclientesPK_idcurso}" for="cursosclientesPK_idcurso" />
+                        <p:inputText id="cursosclientesPK_idcurso" value="#{cursosclientesController.selected.cursosclientesPK.idcurso}" title="#{bundle.CreateCursosclientesTitle_cursosclientesPK_idcurso}" required="true" requiredMessage="#{bundle.CreateCursosclientesRequiredMessage_cursosclientesPK_idcurso}"/>
+                        <p:outputLabel value="#{bundle.CreateCursosclientesLabel_cursosclientesPK_idclientes}" for="cursosclientesPK_idclientes" />
+                        <p:inputText id="cursosclientesPK_idclientes" value="#{cursosclientesController.selected.cursosclientesPK.idclientes}" title="#{bundle.CreateCursosclientesTitle_cursosclientesPK_idclientes}" required="true" requiredMessage="#{bundle.CreateCursosclientesRequiredMessage_cursosclientesPK_idclientes}"/>
+                        <p:outputLabel value="#{bundle.CreateCursosclientesLabel_pago}" for="pago" />
+                        <p:selectBooleanCheckbox id="pago" value="#{cursosclientesController.selected.pago}" />
+                        <p:outputLabel value="#{bundle.CreateCursosclientesLabel_observacao}" for="observacao" />
+                        <p:inputText id="observacao" value="#{cursosclientesController.selected.observacao}" title="#{bundle.CreateCursosclientesTitle_observacao}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cursosclientesController.create}" value="#{bundle.Save}" update="display,:CursosclientesListForm:datalist,:growl" oncomplete="handleSubmit(args,'CursosclientesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CursosclientesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

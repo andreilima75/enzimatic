@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCursosclientesTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CursosclientesListForm">
+                <p:panel header="#{bundle.ListCursosclientesTitle}">
+                    <p:dataTable id="datalist" value="#{cursosclientesController.items}" var="item"
+                                 selectionMode="single" selection="#{cursosclientesController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.cursosclientesPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCursosclientesTitle_cursosclientesPK_idcurso}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cursosclientesPK.idcurso}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCursosclientesTitle_cursosclientesPK_idclientes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cursosclientesPK.idclientes}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCursosclientesTitle_pago}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.pago}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCursosclientesTitle_observacao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observacao}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cursosclientesController.prepareCreate}" update=":CursosclientesCreateForm" oncomplete="PF('CursosclientesCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CursosclientesViewForm" oncomplete="PF('CursosclientesViewDialog').show()" disabled="#{empty cursosclientesController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CursosclientesEditForm" oncomplete="PF('CursosclientesEditDialog').show()" disabled="#{empty cursosclientesController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cursosclientesController.destroy}" update=":growl,datalist" disabled="#{empty cursosclientesController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

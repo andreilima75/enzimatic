@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosViewDlg" widgetVar="PedidosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPedidosTitle}">
+            <h:form id="PedidosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPedidosLabel_data}"/>
+                        <h:outputText value="#{pedidosController.selected.data}" title="#{bundle.ViewPedidosTitle_data}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_aberto}"/>
+                        <p:selectBooleanCheckbox value="#{pedidosController.selected.aberto}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_pago}"/>
+                        <p:selectBooleanCheckbox value="#{pedidosController.selected.pago}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_idpedidos}"/>
+                        <h:outputText value="#{pedidosController.selected.idpedidos}" title="#{bundle.ViewPedidosTitle_idpedidos}"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_observacao}"/>
+                        <h:outputText value="#{pedidosController.selected.observacao}" title="#{bundle.ViewPedidosTitle_observacao}"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_valorcobrado}"/>
+                        <h:outputText value="#{pedidosController.selected.valorcobrado}" title="#{bundle.ViewPedidosTitle_valorcobrado}"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_valorreal}"/>
+                        <h:outputText value="#{pedidosController.selected.valorreal}" title="#{bundle.ViewPedidosTitle_valorreal}"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_lucro}"/>
+                        <h:outputText value="#{pedidosController.selected.lucro}" title="#{bundle.ViewPedidosTitle_lucro}"/>
+                        <h:outputText value="#{bundle.ViewPedidosLabel_idclientes}"/>
+                        <h:outputText value="#{pedidosController.selected.idclientes}" title="#{bundle.ViewPedidosTitle_idclientes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PedidosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricovendasCreateDlg" widgetVar="HistoricovendasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateHistoricovendasTitle}">
+            <h:form id="HistoricovendasCreateForm">
+
+                <p:messages id="messages" showDetail="true" closable="true" autoUpdate="true"/>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicovendasController.selected != null}">
+
+                        <p:outputLabel value="#{bundle.CreateProdutosLabel_laboratoriotipo}" for="laboratoriotipo" />
+                        <p:selectOneMenu id="laboratoriotipo" value="#{historicovendasController.laboratoriotipo}" required="true" requiredMessage="#{bundle.EditProdutosRequiredMessage_laboratoriotipo}">
+                            <p:ajax listener="#{historicovendasController.onLaboratorioTipoChange}" update="produtos" />
+                            <p:ajax update="receita,valorcobrado,valorreal,quantidade,lucro,estoque" />
+                            <f:selectItems value="#{laboratoriotipoController.itemsAvailableSelectOne}"
+                                           var="laboratoriotipoItem"
+                                           itemValue="#{laboratoriotipoItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosprodutosLabel_produtos}" for="produtos" />
+                        <p:selectOneMenu id="produtos" value="#{historicovendasController.selected.produtos}" required="true" requiredMessage="#{bundle.EditPedidosprodutosRequiredMessage_produtos}">
+                            <p:ajax listener="#{historicovendasController.onProdutosChange}" update="receita,valorcobrado,valorreal,quantidade,lucro,estoque" />
+                            <f:selectItems value="#{historicovendasController.vendasProdutos}"
+                                           var="pedidosprodutosItem"
+                                           itemValue="#{pedidosprodutosItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateProdutosLabel_receita}" for="receita" />
+                        <p:inputTextarea readonly="true" rows="6" cols="33" id="receita" value="#{historicovendasController.selected.produtos.receita}" title="#{bundle.CreateProdutosTitle_estoque}" />
+
+                        <p:outputLabel value="#{bundle.CreateProdutosLabel_estoque}" for="estoque" />
+                        <p:inputText readonly="true" id="estoque" value="#{historicovendasController.selected.produtos.estoque}" title="#{bundle.CreateProdutosTitle_estoque}" />
+
+                        <p:outputLabel value="#{bundle.CreateHistoricovendasLabel_quantidade}" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{historicovendasController.selected.quantidade}" title="#{bundle.CreateHistoricovendasTitle_quantidade}" required="true" requiredMessage="#{bundle.CreateHistoricovendasRequiredMessage_quantidade}" converterMessage="Somente números.">
+                            <p:ajax listener="#{historicovendasController.onQuantidadeChange}" update="lucro, quantidade" />
+                        </p:inputText>
+
+                        <p:outputLabel value="#{bundle.CreateHistoricovendasLabel_valorcobrado}" for="valorcobrado" />
+                        <p:inputText id="valorcobrado" value="#{historicovendasController.selected.valorcobrado}" title="#{bundle.CreateHistoricovendasTitle_valorcobrado}" readonly="true"/>
+
+                        <p:outputLabel value="#{bundle.CreateHistoricovendasLabel_valorreal}" for="valorreal" />
+                        <p:inputText id="valorreal" value="#{historicovendasController.selected.valorreal}" title="#{bundle.CreateHistoricovendasTitle_valorreal}" readonly="true"/>
+
+                        <p:outputLabel value="#{bundle.CreateHistoricovendasLabel_lucro}" for="lucro" />
+                        <p:inputText id="lucro" value="#{historicovendasController.selected.lucro}" title="#{bundle.CreateHistoricovendasTitle_lucro}" readonly="true"/>
+
+                        <p:outputLabel value="#{bundle.CreateHistoricovendasLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="dd/MM/yyyy" value="#{historicovendasController.selected.data}" title="#{bundle.EditHistoricovendasTitle_data}" required="true" requiredMessage="#{bundle.EditHistoricovendasRequiredMessage_data}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{historicovendasController.create}" value="#{bundle.Save}" update="display,:HistoricovendasListForm:datalist,:growl" oncomplete="handleSubmit(args,'HistoricovendasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoricovendasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

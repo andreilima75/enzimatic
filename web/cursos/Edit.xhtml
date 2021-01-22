@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursosEditDlg" widgetVar="CursosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCursosTitle}">
+            <h:form id="CursosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cursosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCursosLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{cursosController.selected.nome}" title="#{bundle.EditCursosTitle_nome}" required="true" requiredMessage="#{bundle.EditCursosRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.EditCursosLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{cursosController.selected.data}" title="#{bundle.EditCursosTitle_data}" required="true" requiredMessage="#{bundle.EditCursosRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCursosLabel_observacao}" for="observacao" />
+                        <p:inputText id="observacao" value="#{cursosController.selected.observacao}" title="#{bundle.EditCursosTitle_observacao}" />
+                        <p:outputLabel value="#{bundle.EditCursosLabel_vagas}" for="vagas" />
+                        <p:inputText id="vagas" value="#{cursosController.selected.vagas}" title="#{bundle.EditCursosTitle_vagas}" required="true" requiredMessage="#{bundle.EditCursosRequiredMessage_vagas}"/>
+                        <p:outputLabel value="#{bundle.EditCursosLabel_local}" for="local" />
+                        <p:inputText id="local" value="#{cursosController.selected.local}" title="#{bundle.EditCursosTitle_local}" />
+                        <p:outputLabel value="#{bundle.EditCursosLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{cursosController.selected.valor}" title="#{bundle.EditCursosTitle_valor}" required="true" requiredMessage="#{bundle.EditCursosRequiredMessage_valor}"/>
+                        <p:outputLabel value="#{bundle.EditCursosLabel_vagasdisponiveis}" for="vagasdisponiveis" />
+                        <p:inputText id="vagasdisponiveis" value="#{cursosController.selected.vagasdisponiveis}" title="#{bundle.EditCursosTitle_vagasdisponiveis}" />
+                        <p:outputLabel value="#{bundle.EditCursosLabel_encerrado}" for="encerrado" />
+                        <p:selectBooleanCheckbox id="encerrado" value="#{cursosController.selected.encerrado}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cursosController.update}" value="#{bundle.Save}" update="display,:CursosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CursosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CursosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

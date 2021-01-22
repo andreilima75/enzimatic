@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template_1_1.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Imprimir Endereco"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id ="gerarPedidoForm" >
+                <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                    <p:printer target="printSection" />
+                </p:commandButton>
+                <h:link outcome="/pedidos/List" value="Voltar"/>
+
+                <br/>Pedido de: #{pedidosDetailController.pedido.idclientes.nome}
+
+                <p:panel id="printSection" style="display:block;color:black; font-weight: bold;">
+                    <br/>
+                    <br/>Para: #{pedidosDetailController.pedido.idclientes.nome}
+                    <br/>#{pedidosDetailController.pedido.idclientes.endereco}
+                    <br/>#{pedidosDetailController.pedido.idclientes.cidade} - #{pedidosDetailController.pedido.idclientes.estado}
+                    <br/>CEP #{pedidosDetailController.pedido.idclientes.cep}
+                    <br/><br/><br/><br/>
+                    <br/>De Marcio Gomes
+                    <br/>Avenida 21 de abril, 714
+                    <br/>Sarandi 
+                    <br/>Porto Alegre - RS
+                    <br/>CEP 91120-630
+                </p:panel>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LaboratoriotipoCreateDlg" widgetVar="LaboratoriotipoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLaboratoriotipoTitle}">
+            <h:form id="LaboratoriotipoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{laboratoriotipoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLaboratoriotipoLabel_observacao}" for="observacao" />
+                        <p:inputText id="observacao" value="#{laboratoriotipoController.selected.observacao}" title="#{bundle.CreateLaboratoriotipoTitle_observacao}" />
+                        <p:outputLabel value="#{bundle.CreateLaboratoriotipoLabel_laboratorio}" for="laboratorio" />
+                        <p:selectOneMenu id="laboratorio" value="#{laboratoriotipoController.selected.laboratorio}" required="true" requiredMessage="#{bundle.EditLaboratoriotipoRequiredMessage_laboratorio}">
+                            <f:selectItems value="#{laboratorioController.itemsAvailableSelectOne}"
+                                           var="laboratorioItem"
+                                           itemValue="#{laboratorioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLaboratoriotipoLabel_tipo}" for="tipo" />
+                        <p:selectOneMenu id="tipo" value="#{laboratoriotipoController.selected.tipo}" required="true" requiredMessage="#{bundle.EditLaboratoriotipoRequiredMessage_tipo}">
+                            <f:selectItems value="#{tipoController.itemsAvailableSelectOne}"
+                                           var="tipoItem"
+                                           itemValue="#{tipoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{laboratoriotipoController.create}" value="#{bundle.Save}" update="display,:LaboratoriotipoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LaboratoriotipoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LaboratoriotipoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
